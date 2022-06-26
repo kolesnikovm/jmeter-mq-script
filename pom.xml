@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.github.kolesnikovm</groupId>
+    <artifactId>UC01_MQ</artifactId>
+    <version>1.0</version>
+
+    <properties>
+        <threads/>
+        <pacing/>
+        <rampUpTime/>
+        <stepsCount/>
+        <duration/>
+        <debug/>
+        <runId/>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.lazerycode.jmeter</groupId>
+                <artifactId>jmeter-maven-plugin</artifactId>
+                <version>3.4.0</version>
+                <executions>
+                    <execution>
+                        <id>configuration</id>
+                        <goals>
+                            <goal>configure</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>jmeter-tests</id>
+                        <goals>
+                            <goal>jmeter</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <jmeterVersion>5.4.1</jmeterVersion>
+                    <guiTestFile>${project.basedir}/src/test/jmeter/${project.artifactId}.jmx</guiTestFile>
+                    <jmeterExtensions>
+                        <artifact>kg.apc:jmeter-plugins-casutg:2.9</artifact>
+                        <artifact>com.blazemeter:jmeter-plugins-random-csv-data-set:0.7</artifact>
+                        <artifact>io.github.kolesnikovm:jmeter-prometheus-listener:2.3.1</artifact>
+                    </jmeterExtensions>
+                    <testPlanLibraries>
+                        <artifact>com.ibm.mq:com.ibm.mq.allclient:9.2.2.0</artifact>
+                        <artifact>org.codehaus.groovy:groovy-yaml:3.0.8</artifact>
+                    </testPlanLibraries>
+                    <jMeterProcessJVMSettings>
+                        <xms>2048</xms>
+                        <xmx>2048</xmx>
+                    </jMeterProcessJVMSettings>
+                    <propertiesUser>
+                        <threads>${threads}</threads>
+                        <pacing>${pacing}</pacing>
+                        <rampUpTime>${rampUpTime}</rampUpTime>
+                        <stepsCount>${stepsCount}</stepsCount>
+                        <duration>${duration}</duration>
+                        <debug>${debug}</debug>
+                        <runId>${runId}</runId>
+                        <trackResponseTime>true</trackResponseTime>
+                    </propertiesUser>
+                    <overrideRootLogLevel>ERROR</overrideRootLogLevel>
+                    <resultsDirectory>/dev/null</resultsDirectory>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

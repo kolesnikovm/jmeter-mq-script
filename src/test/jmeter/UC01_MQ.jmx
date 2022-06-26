@@ -1,0 +1,770 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.4.1">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="UC01_MQ" enabled="true">
+      <stringProp name="TestPlan.comments"></stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+    </TestPlan>
+    <hashTree>
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="configHost" elementType="Argument">
+            <stringProp name="Argument.name">configHost</stringProp>
+            <stringProp name="Argument.value">gitlab</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="configPath" elementType="Argument">
+            <stringProp name="Argument.name">configPath</stringProp>
+            <stringProp name="Argument.value">/api/v4/projects/7302/repository/files/stand.yml/raw</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="mqport" elementType="Argument">
+            <stringProp name="Argument.name">mqport</stringProp>
+            <stringProp name="Argument.value">1401</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="channelName" elementType="Argument">
+            <stringProp name="Argument.name">channelName</stringProp>
+            <stringProp name="Argument.value">PPRBIM.SC</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="queueManagerName" elementType="Argument">
+            <stringProp name="Argument.name">queueManagerName</stringProp>
+            <stringProp name="Argument.value">IGW.PPRB.GATEWAY.1</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="rqQueue" elementType="Argument">
+            <stringProp name="Argument.name">rqQueue</stringProp>
+            <stringProp name="Argument.value">SV.PPRB.ACQUIRINGOPERATIONPROCESS.IN</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="rsQueue" elementType="Argument">
+            <stringProp name="Argument.name">rsQueue</stringProp>
+            <stringProp name="Argument.value">SV.PPRB.ACQUIRINGOPERATIONPROCESS.OUT</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="queue_1" elementType="Argument">
+            <stringProp name="Argument.name">queue_1</stringProp>
+            <stringProp name="Argument.value">SV.PPRB.ACQUIRINGOPERATIONPROCESS.IN</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="queue_2" elementType="Argument">
+            <stringProp name="Argument.name">queue_2</stringProp>
+            <stringProp name="Argument.value">SV.PPRB.ACQUIRINGOPERATIONPROCESS.OUT</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="metricsPort" elementType="Argument">
+            <stringProp name="Argument.name">metricsPort</stringProp>
+            <stringProp name="Argument.value">9001</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+      </Arguments>
+      <hashTree/>
+      <BackendListener guiclass="BackendListenerGui" testclass="BackendListener" testname="Backend Listener" enabled="true">
+        <elementProp name="arguments" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" enabled="true">
+          <collectionProp name="Arguments.arguments">
+            <elementProp name="testName" elementType="Argument">
+              <stringProp name="Argument.name">testName</stringProp>
+              <stringProp name="Argument.value">project</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="runId" elementType="Argument">
+              <stringProp name="Argument.name">runId</stringProp>
+              <stringProp name="Argument.value">${__P(runId, debug)}</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="exporterPort" elementType="Argument">
+              <stringProp name="Argument.name">exporterPort</stringProp>
+              <stringProp name="Argument.value">${metricsPort}</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="samplersRegExp" elementType="Argument">
+              <stringProp name="Argument.name">samplersRegExp</stringProp>
+              <stringProp name="Argument.value">UC.+</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+          </collectionProp>
+        </elementProp>
+        <stringProp name="classname">com.github.kolesnikovm.PrometheusListener</stringProp>
+      </BackendListener>
+      <hashTree/>
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <url>true</url>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+      <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector" testname="Aggregate Report" enabled="true">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <url>true</url>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+      <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="setUp" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">stoptestnow</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+      </SetupThreadGroup>
+      <hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="[HTTP] get stand" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${configHost}</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">${configPath}</stringProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="[JSR] parse stand" enabled="true">
+            <stringProp name="scriptLanguage">groovy</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="script">import groovy.yaml.YamlSlurper
+
+
+def stand = new YamlSlurper().parseText(prev.getResponseDataAsString())
+
+stand.mq.eachWithIndex{ host, index -&gt;
+	vars.put(&quot;mqhost_${index+1}&quot;, host)
+	props.put(&quot;mqhost_$index&quot;, host)
+}
+</stringProp>
+          </JSR223PostProcessor>
+          <hashTree/>
+        </hashTree>
+        <ForeachController guiclass="ForeachControlPanel" testclass="ForeachController" testname="[FE] mqhost" enabled="true">
+          <stringProp name="ForeachController.inputVal">mqhost</stringProp>
+          <stringProp name="ForeachController.returnVal">mqhost</stringProp>
+          <boolProp name="ForeachController.useSeparator">true</boolProp>
+        </ForeachController>
+        <hashTree>
+          <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="[JSR] Setup MQ ${mqhost}" enabled="true">
+            <stringProp name="scriptLanguage">groovy</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="script">import com.ibm.msg.client.jms.JmsConnectionFactory
+import com.ibm.msg.client.jms.JmsFactoryFactory
+import com.ibm.msg.client.wmq.WMQConstants
+
+import javax.jms.Session
+import java.util.concurrent.ConcurrentHashMap
+
+
+def hostName = vars.get(&quot;mqhost&quot;)
+def hostPort = Integer.parseInt(vars.get(&quot;mqport&quot;))
+def channelName = vars.get(&quot;channelName&quot;)
+def queueManagerName = vars.get(&quot;queueManagerName&quot;)
+def rqQueue = vars.get(&quot;rqQueue&quot;)
+def rsQueue = vars.get(&quot;rsQueue&quot;)
+
+def ff = JmsFactoryFactory.getInstance(WMQConstants.WMQ_PROVIDER)
+def rqDestination = ff.createQueue(rqQueue)
+def rsDestination = ff.createQueue(rsQueue)
+
+def cf = ff.createConnectionFactory()
+cf.setStringProperty(WMQConstants.WMQ_HOST_NAME, hostName)
+cf.setIntProperty(WMQConstants.WMQ_PORT, hostPort)
+cf.setStringProperty(WMQConstants.WMQ_CHANNEL, channelName)
+cf.setIntProperty(WMQConstants.WMQ_CONNECTION_MODE, WMQConstants.WMQ_CM_CLIENT)
+cf.setStringProperty(WMQConstants.WMQ_QUEUE_MANAGER, queueManagerName)
+
+def connection = cf.createConnection()
+connection.start()
+
+var idx = Integer.parseInt(vars.get(&quot;__jm__[FE] mqhost__idx&quot;))
+props.put(&quot;mqCount&quot;, idx + 1)
+
+props.put(&quot;connection_$idx&quot;, connection)
+
+props.put(&quot;rqDestination_$idx&quot;, rqDestination)
+props.put(&quot;rsDestination_$idx&quot;, rsDestination)
+</stringProp>
+          </JSR223Sampler>
+          <hashTree/>
+          <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="[JSR] Create Queue Manager ${mqhost}" enabled="true">
+            <stringProp name="scriptLanguage">groovy</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="script">import com.ibm.mq.MQEnvironment
+import com.ibm.mq.MQQueueManager
+import com.ibm.mq.MQC
+
+
+MQEnvironment.hostname = vars.get(&quot;mqhost&quot;)
+MQEnvironment.port = Integer.parseInt(vars.get(&quot;mqport&quot;))
+MQEnvironment.channel = vars.get(&quot;channelName&quot;)
+MQEnvironment.properties.put(MQC.TRANSPORT_PROPERTY, MQC.TRANSPORT_MQSERIES)
+
+def queueManager = new MQQueueManager(&quot;&quot;)
+
+def idx = Integer.parseInt(vars.get(&quot;__jm__[FE] mqhost__idx&quot;))
+props.put(&quot;queueManager_$idx&quot;, queueManager)
+</stringProp>
+          </JSR223Sampler>
+          <hashTree/>
+        </hashTree>
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="[JSR] Utils" enabled="true">
+          <stringProp name="scriptLanguage">groovy</stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="script">import java.util.concurrent.ConcurrentHashMap
+import java.nio.file.Files
+import java.nio.file.Paths
+import org.apache.jmeter.services.FileServer
+import io.prometheus.client.*
+
+
+def timestamps = new ConcurrentHashMap()
+props.put(&quot;timestamps&quot;, timestamps)
+
+
+def templatePath = FileServer.getFileServer().getBaseDir() &lt;&lt; &apos;/resources/AcquiringOperationProcess.xml&apos;
+def template = new String(Files.readAllBytes(Paths.get(templatePath.toString())), &quot;UTF-8&quot;)
+props.put(&quot;template&quot;, template)
+
+
+def queueDepthCollector = Gauge.build()
+		.name(&quot;jmeter_queue_depth&quot;)
+		.help(&quot;Gauge for IM queue depth&quot;)
+		.labelNames(&quot;mqHost&quot;, &quot;queue&quot;)
+		.register()
+props.put(&quot;queueDepthCollector&quot;, queueDepthCollector)
+</stringProp>
+        </JSR223Sampler>
+        <hashTree/>
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="[JSR] Custom Collector" enabled="true">
+          <stringProp name="scriptLanguage">groovy</stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="script">import io.prometheus.client.*
+
+def customCollector = Summary.build()
+				.name(&quot;transactions_ids&quot;)
+				.help(&quot;transactions ids&quot;)
+				.labelNames(&quot;label&quot;)
+				.register();
+
+props.put(&quot;customCollector&quot;, customCollector)</stringProp>
+        </JSR223Sampler>
+        <hashTree/>
+      </hashTree>
+      <PostThreadGroup guiclass="PostThreadGroupGui" testclass="PostThreadGroup" testname="tearDown" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">stoptestnow</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+      </PostThreadGroup>
+      <hashTree>
+        <ForeachController guiclass="ForeachControlPanel" testclass="ForeachController" testname="[FE] queue" enabled="true">
+          <stringProp name="ForeachController.inputVal">queue</stringProp>
+          <stringProp name="ForeachController.returnVal">queue</stringProp>
+          <boolProp name="ForeachController.useSeparator">true</boolProp>
+        </ForeachController>
+        <hashTree>
+          <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="[JSR] Clean Queue" enabled="true">
+            <stringProp name="scriptLanguage">groovy</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="script">import javax.jms.Session
+
+
+def mqCount = props.get(&quot;mqCount&quot;)
+
+def messageCount = 0
+
+for (def i = 0; i &lt; mqCount; i++) {
+	def connection = props.get(&quot;connection_$i&quot;)
+
+	def session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE)
+	def destination = session.createQueue(vars.get(&quot;queue&quot;))
+	def consumer = session.createConsumer(destination)
+	
+	while(true) {
+		msg = consumer.receiveNoWait()
+		if (msg == null) break
+		else messageCount++
+	}
+	
+	consumer.close()
+	
+	SampleResult.setLatency(messageCount)
+}
+</stringProp>
+          </JSR223Sampler>
+          <hashTree/>
+        </hashTree>
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="[JSR] Tear Down" enabled="true">
+          <stringProp name="scriptLanguage">groovy</stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="script">for (def p : props.entrySet()) {
+	def propertyName = p.getKey()
+	if (propertyName.startsWith(&quot;connection_&quot;)) {
+		props.get(propertyName).close()
+	}
+	if (propertyName.startsWith(&quot;queueManager_&quot;)) {
+		props.get(propertyName).disconnect()
+	}
+}
+
+if (props.get(&quot;timestamps&quot;) != null) {
+	props.get(&quot;timestamps&quot;).clear()
+}
+</stringProp>
+        </JSR223Sampler>
+        <hashTree/>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Queue Depth" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <intProp name="LoopController.loops">-1</intProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.duration">${__jexl3((${__P(rampUpTime,0)}+${__P(duration,1)})*60)}</stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+      </ThreadGroup>
+      <hashTree>
+        <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Pacing Action" enabled="true">
+          <intProp name="ActionProcessor.action">1</intProp>
+          <intProp name="ActionProcessor.target">0</intProp>
+          <stringProp name="ActionProcessor.duration"></stringProp>
+        </TestAction>
+        <hashTree>
+          <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer" enabled="true">
+            <doubleProp>
+              <name>throughput</name>
+              <value>60.0</value>
+              <savedValue>0.0</savedValue>
+            </doubleProp>
+            <intProp name="calcMode">2</intProp>
+          </ConstantThroughputTimer>
+          <hashTree/>
+        </hashTree>
+        <ForeachController guiclass="ForeachControlPanel" testclass="ForeachController" testname="[FE] queue" enabled="true">
+          <stringProp name="ForeachController.inputVal">queue</stringProp>
+          <stringProp name="ForeachController.returnVal">queue</stringProp>
+          <boolProp name="ForeachController.useSeparator">true</boolProp>
+        </ForeachController>
+        <hashTree>
+          <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="[JSR] Get Queue Depth ${queue}" enabled="true">
+            <stringProp name="scriptLanguage">groovy</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="script">import com.ibm.mq.MQC
+
+
+def mqCount = props.get(&quot;mqCount&quot;)
+def queueDepthCollector = props.get(&quot;queueDepthCollector&quot;)
+
+for (def i = 0; i &lt; mqCount; i++) {
+	def queueManager = props.get(&quot;queueManager_$i&quot;)
+
+	def queue = queueManager.accessQueue(vars.get(&quot;queue&quot;), MQC.MQOO_INQUIRE)
+	def depth = queue.getCurrentDepth()
+
+	queueDepthCollector.labels(props.get(&quot;mqhost_$i&quot;), vars.get(&quot;queue&quot;)).set(depth)
+}
+</stringProp>
+          </JSR223Sampler>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+      <com.blazemeter.jmeter.threads.concurrency.ConcurrencyThreadGroup guiclass="com.blazemeter.jmeter.threads.concurrency.ConcurrencyThreadGroupGui" testclass="com.blazemeter.jmeter.threads.concurrency.ConcurrencyThreadGroup" testname="UC01_MQ" enabled="true">
+        <elementProp name="ThreadGroup.main_controller" elementType="com.blazemeter.jmeter.control.VirtualUserController"/>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <stringProp name="TargetLevel">${__groovy(${__P(threads, 0)} * props.get(&quot;mqCount&quot;))}</stringProp>
+        <stringProp name="RampUp">${__P(rampUpTime,0)}</stringProp>
+        <stringProp name="Steps">${__P(stepsCount,0)}</stringProp>
+        <stringProp name="Hold">${__P(duration,0)}</stringProp>
+        <stringProp name="LogFilename"></stringProp>
+        <stringProp name="Iterations"></stringProp>
+        <stringProp name="Unit">M</stringProp>
+      </com.blazemeter.jmeter.threads.concurrency.ConcurrencyThreadGroup>
+      <hashTree>
+        <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Pacing Action" enabled="true">
+          <intProp name="ActionProcessor.action">1</intProp>
+          <intProp name="ActionProcessor.target">0</intProp>
+          <stringProp name="ActionProcessor.duration"></stringProp>
+        </TestAction>
+        <hashTree>
+          <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="[JSR] Random Delay" enabled="true">
+            <stringProp name="scriptLanguage">groovy</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="script">if (vars.getIteration() == 1) {
+	def pacing = Double.parseDouble(&quot;${__P(pacing)}&quot;)
+	def delay = Math.round(Math.random() * pacing)
+	Thread.sleep(delay * 1000)
+}
+</stringProp>
+          </JSR223PreProcessor>
+          <hashTree/>
+          <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer" enabled="true">
+            <stringProp name="throughput">${__groovy(60.0/${__groovy(${__P(pacing)} * props.get(&quot;mqCount&quot;))} *ctx.getThreadGroup().getNumberOfThreads())}</stringProp>
+            <intProp name="calcMode">2</intProp>
+          </ConstantThroughputTimer>
+          <hashTree/>
+        </hashTree>
+        <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="[MC] UC01_Producer" enabled="true">
+          <collectionProp name="ModuleController.node_path">
+            <stringProp name="764597751">Test Plan</stringProp>
+            <stringProp name="-477399658">UC01_AcqTransactionService</stringProp>
+            <stringProp name="65906227">Debug</stringProp>
+            <stringProp name="-1790659918">[TF] UC01_Producer</stringProp>
+          </collectionProp>
+        </ModuleController>
+        <hashTree/>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Debug" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">${__P(debug, ${__groovy(props.get(&quot;mqCount&quot;))})}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+      </ThreadGroup>
+      <hashTree>
+        <TestFragmentController guiclass="TestFragmentControllerGui" testclass="TestFragmentController" testname="[TF] UC01_Producer" enabled="true"/>
+        <hashTree>
+          <OnceOnlyController guiclass="OnceOnlyControllerGui" testclass="OnceOnlyController" testname="[OC] Create Session" enabled="true"/>
+          <hashTree>
+            <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="[JSR] Create Producer Session" enabled="true">
+              <stringProp name="scriptLanguage">groovy</stringProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="cacheKey">true</stringProp>
+              <stringProp name="script">import javax.jms.Session
+import javax.jms.DeliveryMode
+
+
+def mqCount = props.get(&quot;mqCount&quot;)
+def idx = (ctx.getThreadNum() + 1) % mqCount
+
+def connection = props.get(&quot;connection_$idx&quot;)
+def destination = props.get(&quot;rqDestination_$idx&quot;)
+
+
+def session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE)
+def producer = session.createProducer(destination)
+producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT)
+
+vars.putObject(&quot;session&quot;, session)
+vars.putObject(&quot;producer&quot;, producer)
+</stringProp>
+            </JSR223Sampler>
+            <hashTree/>
+          </hashTree>
+          <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="UC01_01_Producer" enabled="true">
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="script">import java.time.Instant
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
+import javax.jms.TextMessage
+import com.datastax.driver.core.utils.*
+
+
+def timestamps = props.get(&quot;timestamps&quot;)
+
+def rqUID = vars.get(&quot;rqUID&quot;)
+def payload = vars.get(&quot;msg&quot;)
+
+def session = vars.getObject(&quot;session&quot;)
+def producer = vars.getObject(&quot;producer&quot;)
+
+def msg = session.createTextMessage(payload)
+msg.setStringProperty(&quot;RqUID&quot;, rqUID)
+//msg.setStringProperty(&quot;ServiceName&quot;, &quot;RequestAcquiringReport&quot;)
+
+def start = Instant.now()
+producer.send(msg)
+def stop = Instant.now()
+
+def timeStamp = msg.getJMSTimestamp()
+def messageID = msg.getJMSMessageID()
+
+def trackResponseTime = props.getOrDefault(&quot;trackResponseTime&quot;, true)
+if (trackResponseTime) {
+	timestamps.put(messageID, timeStamp)
+}
+
+
+SampleResult.setResponseData(msg.toString() + &quot;\n&quot; + msg.asType(TextMessage).getText())
+SampleResult.setResponseMessage(&quot;Message sent&quot;)
+SampleResult.setLatency(stop.toEpochMilli() - start.toEpochMilli())
+</stringProp>
+            <stringProp name="scriptLanguage">groovy</stringProp>
+          </JSR223Sampler>
+          <hashTree>
+            <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="[JSR] create message" enabled="true">
+              <stringProp name="scriptLanguage">groovy</stringProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="cacheKey">true</stringProp>
+              <stringProp name="script">import java.text.SimpleDateFormat
+import org.apache.commons.lang3.text.StrSubstitutor
+
+
+def rqUID = UUID.randomUUID().toString().replace(&quot;-&quot;, &quot;&quot;)
+def sdf = new SimpleDateFormat(&quot;yyyy-MM-dd&apos;T&apos;HH:mm:ss.SSS+03:00&quot;)
+def rqTm = sdf.format(new Date())
+
+def params = new HashMap&lt;String, String&gt;()
+params.put(&quot;RqUID&quot;, rqUID)
+params.put(&quot;RqTm&quot;, rqTm)
+
+
+def template = props.get(&quot;template&quot;)
+
+def sub = new StrSubstitutor(params, &quot;{&quot;, &quot;}&quot;)
+def msg = sub.replace(template)
+
+
+vars.put(&quot;rqUID&quot;, rqUID)
+vars.put(&quot;msg&quot;, msg)
+</stringProp>
+            </JSR223PreProcessor>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Consumer" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <intProp name="LoopController.loops">-1</intProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">${__groovy(5 * props.get(&quot;mqCount&quot;))}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.duration">${__jexl3((${__P(rampUpTime,0)}+${__P(duration,1)})*60)}</stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+      </ThreadGroup>
+      <hashTree>
+        <OnceOnlyController guiclass="OnceOnlyControllerGui" testclass="OnceOnlyController" testname="[OC] Create Session" enabled="true"/>
+        <hashTree>
+          <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="[JSR] Create Consumer Session" enabled="true">
+            <stringProp name="scriptLanguage">groovy</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="script">import javax.jms.Session
+
+
+def mqCount = props.get(&quot;mqCount&quot;)
+def idx = (ctx.getThreadNum() + 1) % mqCount
+
+def connection = props.get(&quot;connection_$idx&quot;)
+def destination = props.get(&quot;rsDestination_$idx&quot;)
+
+def session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE)
+def consumer = session.createConsumer(destination)
+
+vars.putObject(&quot;consumer&quot;, consumer)
+</stringProp>
+          </JSR223Sampler>
+          <hashTree/>
+        </hashTree>
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="UC01_XX_MQ" enabled="true">
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="script">import javax.jms.TextMessage
+import javax.jms.BytesMessage
+
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.Instant
+import java.time.format.DateTimeFormatter
+
+
+def timestamps = props.get(&quot;timestamps&quot;)
+def consumer = vars.getObject(&quot;consumer&quot;)
+
+def start = Instant.now()
+def msg = consumer.receiveNoWait()
+def stop = Instant.now()
+
+def rqTimestamp = 1
+def rsTimestamp = 1
+def rqUID = &quot;&quot;
+
+if (msg != null) {
+	if (msg instanceof TextMessage) {
+		def text = msg.asType(TextMessage).getText()
+		rqUID = msg.getJMSCorrelationID()
+		
+		rqTimestamp = timestamps.getOrDefault(rqUID, 1)
+		
+		if (rqTimestamp != 1) {
+			rsTimestamp = msg.getJMSTimestamp()
+			timestamps.remove(rqUID)
+		} else {
+			rsTimestamp = 1
+		}
+
+		SampleResult.setResponseData(msg.toString() + &quot;\n&quot; + text + rqUID)
+	} else {
+		log.debug(&quot;#### Incoming message has not TEXT format!&quot;)
+	}
+} else {
+	SampleResult.setIgnore()
+
+	return
+}
+
+SampleResult.setLatency(stop.toEpochMilli() - start.toEpochMilli())
+
+vars.putObject(&quot;rqTimestamp&quot;, rqTimestamp)
+vars.putObject(&quot;rsTimestamp&quot;, rsTimestamp)
+vars.putObject(&quot;rqUID&quot;, rqUID)
+</stringProp>
+          <stringProp name="scriptLanguage">groovy</stringProp>
+        </JSR223Sampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="[RA] status" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="1926494843">&lt;isVerify&gt;true&lt;/isVerify&gt;</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">2</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="[JSR] set response time" enabled="true">
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="script">def rqTimestamp = vars.getObject(&quot;rqTimestamp&quot;)
+def rsTimestamp = vars.getObject(&quot;rsTimestamp&quot;)
+def rqUID = vars.getObject(&quot;rqUID&quot;)
+
+
+prev.setStartTime(rqTimestamp)
+prev.setEndTime(rsTimestamp)
+log.error(&quot;{} {} {} time {}&quot;, rqUID, rsTimestamp, rqTimestamp, rsTimestamp - rqTimestamp)
+</stringProp>
+            <stringProp name="scriptLanguage">groovy</stringProp>
+          </JSR223PostProcessor>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>
