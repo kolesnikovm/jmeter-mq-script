@@ -6,7 +6,7 @@
 
 - скрипт может работать одновременно с несколькими серверами MQ
 
-- скрипт получает адреса MQ из GitLab. Есть возможность получать координаты разных стендов через выбор maven профиля при запуске теста
+- скрипт получает адреса MQ из GitLab
 
 - регулирование нагрузки производится передачей параметров при запуске скрипта. Рассчет данных параметров производится следующим образом:
 
@@ -41,7 +41,7 @@
 Пример команды запуска теста:
 
 ```bash
-mvn clean jmeter:configure jmeter:jmeter -DselectConfiguration=default-cli -Dthreads=10 -Dpacing=0.05 -DstepsCount=10 -DrumpUpTime=10 -Dduration=60 -Ddebug=0 -DrunId=1 -Prapid
+mvn clean jmeter:configure jmeter:jmeter -DselectConfiguration=default-cli -Dthreads=10 -Dpacing=0.05 -DstepsCount=10 -DrumpUpTime=10 -Dduration=60 -Ddebug=0 -DrunId=1
 ```
 
 где
@@ -57,8 +57,6 @@ mvn clean jmeter:configure jmeter:jmeter -DselectConfiguration=default-cli -Dthr
 `-Ddebug=0` - отключение тред группы **Debug**
 
 `-DrunId=1` - ID теста для удобства мониторинга
-
-`-Prapid` - выбор maven-профиля для получения координат нужного стенда
 
 ## Детали реализации
 
