@@ -24,39 +24,45 @@
             <stringProp name="Argument.value">/api/v4/projects/7302/repository/files/stand.yml/raw</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
+          <elementProp name="mqhost_1" elementType="Argument">
+            <stringProp name="Argument.name">mqhost_1</stringProp>
+            <stringProp name="Argument.value">localhost</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">to test without external config</stringProp>
+          </elementProp>
           <elementProp name="mqport" elementType="Argument">
             <stringProp name="Argument.name">mqport</stringProp>
-            <stringProp name="Argument.value">1401</stringProp>
+            <stringProp name="Argument.value">1414</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="channelName" elementType="Argument">
             <stringProp name="Argument.name">channelName</stringProp>
-            <stringProp name="Argument.value">PPRBIM.SC</stringProp>
+            <stringProp name="Argument.value">DEV.ADMIN.SVRCONN</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="queueManagerName" elementType="Argument">
             <stringProp name="Argument.name">queueManagerName</stringProp>
-            <stringProp name="Argument.value">IGW.PPRB.GATEWAY.1</stringProp>
+            <stringProp name="Argument.value">QM1</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="rqQueue" elementType="Argument">
             <stringProp name="Argument.name">rqQueue</stringProp>
-            <stringProp name="Argument.value">SV.PPRB.ACQUIRINGOPERATIONPROCESS.IN</stringProp>
+            <stringProp name="Argument.value">DEV.QUEUE.1</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="rsQueue" elementType="Argument">
             <stringProp name="Argument.name">rsQueue</stringProp>
-            <stringProp name="Argument.value">SV.PPRB.ACQUIRINGOPERATIONPROCESS.OUT</stringProp>
+            <stringProp name="Argument.value">DEV.QUEUE.2</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="queue_1" elementType="Argument">
             <stringProp name="Argument.name">queue_1</stringProp>
-            <stringProp name="Argument.value">SV.PPRB.ACQUIRINGOPERATIONPROCESS.IN</stringProp>
+            <stringProp name="Argument.value">DEV.QUEUE.1</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="queue_2" elementType="Argument">
             <stringProp name="Argument.name">queue_2</stringProp>
-            <stringProp name="Argument.value">SV.PPRB.ACQUIRINGOPERATIONPROCESS.OUT</stringProp>
+            <stringProp name="Argument.value">DEV.QUEUE.2</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="metricsPort" elementType="Argument">
@@ -257,10 +263,10 @@ cf.setStringProperty(WMQConstants.WMQ_CHANNEL, channelName)
 cf.setIntProperty(WMQConstants.WMQ_CONNECTION_MODE, WMQConstants.WMQ_CM_CLIENT)
 cf.setStringProperty(WMQConstants.WMQ_QUEUE_MANAGER, queueManagerName)
 
-def connection = cf.createConnection()
+def connection = cf.createConnection(&quot;admin&quot;, &quot;passw0rd&quot;)
 connection.start()
 
-var idx = Integer.parseInt(vars.get(&quot;__jm__[FE] mqhost__idx&quot;))
+def idx = Integer.parseInt(vars.get(&quot;__jm__[FE] mqhost__idx&quot;))
 props.put(&quot;mqCount&quot;, idx + 1)
 
 props.put(&quot;connection_$idx&quot;, connection)
@@ -284,6 +290,8 @@ MQEnvironment.hostname = vars.get(&quot;mqhost&quot;)
 MQEnvironment.port = Integer.parseInt(vars.get(&quot;mqport&quot;))
 MQEnvironment.channel = vars.get(&quot;channelName&quot;)
 MQEnvironment.properties.put(MQC.TRANSPORT_PROPERTY, MQC.TRANSPORT_MQSERIES)
+MQEnvironment.userID = &quot;admin&quot;;
+MQEnvironment.password = &quot;passw0rd&quot;;
 
 def queueManager = new MQQueueManager(&quot;&quot;)
 
@@ -515,7 +523,7 @@ for (def i = 0; i &lt; mqCount; i++) {
         <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="[MC] UC01_Producer" enabled="true">
           <collectionProp name="ModuleController.node_path">
             <stringProp name="764597751">Test Plan</stringProp>
-            <stringProp name="-477399658">UC01_AcqTransactionService</stringProp>
+            <stringProp name="92437204">UC01_MQ</stringProp>
             <stringProp name="65906227">Debug</stringProp>
             <stringProp name="-1790659918">[TF] UC01_Producer</stringProp>
           </collectionProp>
@@ -587,8 +595,8 @@ def session = vars.getObject(&quot;session&quot;)
 def producer = vars.getObject(&quot;producer&quot;)
 
 def msg = session.createTextMessage(payload)
+//msg.setJMSCorrelationID(rqUID)
 msg.setStringProperty(&quot;RqUID&quot;, rqUID)
-//msg.setStringProperty(&quot;ServiceName&quot;, &quot;RequestAcquiringReport&quot;)
 
 def start = Instant.now()
 producer.send(msg)
@@ -737,16 +745,6 @@ vars.putObject(&quot;rqUID&quot;, rqUID)
           <stringProp name="scriptLanguage">groovy</stringProp>
         </JSR223Sampler>
         <hashTree>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="[RA] status" enabled="true">
-            <collectionProp name="Asserion.test_strings">
-              <stringProp name="1926494843">&lt;isVerify&gt;true&lt;/isVerify&gt;</stringProp>
-            </collectionProp>
-            <stringProp name="Assertion.custom_message"></stringProp>
-            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-            <boolProp name="Assertion.assume_success">false</boolProp>
-            <intProp name="Assertion.test_type">2</intProp>
-          </ResponseAssertion>
-          <hashTree/>
           <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="[JSR] set response time" enabled="true">
             <stringProp name="cacheKey">true</stringProp>
             <stringProp name="filename"></stringProp>
@@ -758,7 +756,6 @@ def rqUID = vars.getObject(&quot;rqUID&quot;)
 
 prev.setStartTime(rqTimestamp)
 prev.setEndTime(rsTimestamp)
-log.error(&quot;{} {} {} time {}&quot;, rqUID, rsTimestamp, rqTimestamp, rsTimestamp - rqTimestamp)
 </stringProp>
             <stringProp name="scriptLanguage">groovy</stringProp>
           </JSR223PostProcessor>
